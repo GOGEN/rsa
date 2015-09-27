@@ -11,7 +11,8 @@ module GeneratePrimeNumber
       let bottomBound = 10 ^ k
           upperBound = bottomBound * 10 - 1
           (r, g') = randomR (bottomBound, upperBound) g
-      in genPrime' g' k r
+          r' = if r `mod` 2 == 0 then r + 1 else r
+      in genPrime' g' k r'
 
     genPrime' :: RandomGen g => g -> Integer -> Integer -> (Integer, g)
     genPrime' g k r
