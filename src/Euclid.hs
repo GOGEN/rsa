@@ -1,9 +1,7 @@
 module Euclid
   ( euc
   ) where
-
-  import Debug.Trace
-
+    
   euc :: (Integral a) => a -> a -> (a, a)
   euc a b = case d of
               0 -> (0, 1)
