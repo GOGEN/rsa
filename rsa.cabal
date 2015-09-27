@@ -26,6 +26,7 @@ executable rsa-exe
   build-depends:       base
                      , rsa
                      , random == 1.1
+                     , utf8-string == 1.0.1.1
   default-language:    Haskell2010
 
 test-suite rsa-test

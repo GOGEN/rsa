@@ -8,8 +8,8 @@ module GeneratePrimeNumber
 
     genPrime :: RandomGen g => g -> Integer -> (Integer, g)
     genPrime g k =
-      let bottomBound = 10 ^ k
-          upperBound = bottomBound * 10 - 1
+      let bottomBound = 2 ^ k
+          upperBound = bottomBound * 2 - 1
           (r, g') = randomR (bottomBound, upperBound) g
           r' = if r `mod` 2 == 0 then r + 1 else r
       in genPrime' g' k r'
