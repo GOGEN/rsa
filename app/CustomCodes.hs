@@ -1,0 +1,80 @@
+module CustomCodes
+    ( customChr
+    , customDecrypt
+    ) where
+
+import FastDegree
+import RSA
+
+customDecrypt :: PrivateKey -> Integer -> String
+customDecrypt (n, d) code = go (deg n code d) ""
+  where
+    go 0 word = word
+    go x word = go (x `div` 100) ((customChr $ mod x 100):word)
+
+customChr :: Integer -> Char
+customChr 16 = 'А'
+customChr 17 = 'Б'
+customChr 18 = 'В'
+customChr 19 = 'Г'
+customChr 20 = 'Д'
+customChr 21 = 'Е'
+customChr 22 = 'Ж'
+customChr 23 = 'З'
+customChr 24 = 'И'
+customChr 25 = 'Й'
+customChr 26 = 'К'
+customChr 27 = 'Л'
+customChr 28 = 'М'
+customChr 29 = 'Н'
+customChr 30 = 'О'
+customChr 31 = 'П'
+customChr 32 = 'Р'
+customChr 33 = 'С'
+customChr 34 = 'Т'
+customChr 35 = 'У'
+customChr 36 = 'Ф'
+customChr 37 = 'Х'
+customChr 38 = 'Ц'
+customChr 39 = 'Ч'
+customChr 40 = 'Ш'
+customChr 41 = 'Щ'
+customChr 42 = 'Ъ'
+customChr 43 = 'Ы'
+customChr 44 = 'Ь'
+customChr 45 = 'Э'
+customChr 46 = 'Ю'
+customChr 47 = 'Я'
+customChr 48 = 'а'
+customChr 49 = 'б'
+customChr 50 = 'в'
+customChr 51 = 'г'
+customChr 52 = 'д'
+customChr 53 = 'е'
+customChr 54 = 'ж'
+customChr 55 = 'з'
+customChr 56 = 'и'
+customChr 57 = 'й'
+customChr 58 = 'к'
+customChr 59 = 'л'
+customChr 60 = 'м'
+customChr 61 = 'н'
+customChr 62 = 'о'
+customChr 63 = 'п'
+customChr 64 = 'р'
+customChr 65 = 'с'
+customChr 66 = 'т'
+customChr 67 = 'у'
+customChr 68 = 'ф'
+customChr 69 = 'х'
+customChr 70 = 'ц'
+customChr 71 = 'ч'
+customChr 72 = 'ш'
+customChr 73 = 'щ'
+customChr 74 = 'ъ'
+customChr 75 = 'ы'
+customChr 76 = 'ь'
+customChr 77 = 'э'
+customChr 78 = 'ю'
+customChr 79 = 'я'
+customChr _ = '.'

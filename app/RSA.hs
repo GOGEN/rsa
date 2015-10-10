@@ -2,6 +2,9 @@ module RSA
   ( genParams
   , encrypt
   , decrypt
+  , calcPrivateKey
+  , PrivateKey
+  , PublicKey
   ) where
 
   import FastDegree
@@ -59,3 +62,12 @@ module RSA
   decode' :: String -> Integer -> String
   decode' xs 0 = xs
   decode' xs x = decode' ((chr . fromInteger . mod x $ 1000):xs) $ x `div` 1000
+
+  calcPrivateKey :: (Integer, Integer) -> Integer -> (Integer, Integer)
+  calcPrivateKey (p, q) e =
+    let phiN = (p - 1) * (q - 1)
+        (x, d) = euc phiN e
+        n = p * q
+    in if d > 0
+            then (n, d)
+            else (n, d + phiN)

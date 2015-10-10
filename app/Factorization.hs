@@ -14,10 +14,13 @@ module Factorization
   import Data.List
   import Data.Maybe
 
-  fact :: Integer -> IO (Maybe Integer)
+  fact :: Integer -> IO (Integer, Integer)
   fact n = do
     gen <- getStdGen
-    return $ fact' gen n
+    let x = fact' gen n
+    return  (case x of
+              Nothing -> (n, 1)
+              Just x -> (x, n `div` x))
 
   fact' :: RandomGen g => g -> Integer -> Maybe Integer
   fact' gen n =
