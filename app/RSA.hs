@@ -21,8 +21,8 @@ module RSA
   genParams bitCount = do
     g <- getStdGen
     let primeBitCount = bitCount `div` 2 - 1
-    let (p, g') = genPrime g primeBitCount
-    let (q, g'') = genPrime g' primeBitCount
+    let (p, g') = genPrime' g primeBitCount
+    let (q, g'') = genPrime' g' primeBitCount
     let n = p * q
     let phiN = (p - 1) * (q - 1)
     let e = genE g'' (bitCount `div` 3) p q phiN
@@ -34,7 +34,7 @@ module RSA
 
   genE :: RandomGen g => g -> Integer -> Integer -> Integer -> Integer -> Integer
   genE g bitCount p q phiN =
-    let (e, g') = genPrime g bitCount
+    let (e, g') = genPrime' g bitCount
     in if e == q || e == p || phiN `mod` e == 0
       then genE g' bitCount p q phiN
       else e

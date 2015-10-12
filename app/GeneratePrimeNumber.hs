@@ -1,26 +1,28 @@
 module GeneratePrimeNumber
   ( genPrime
+  , genPrime'
   ) where
 
   import System.Random
   import FastDegree
 
-  genPrime :: RandomGen g => g -> Integer -> (Integer, g)
-  genPrime g k =
+  genPrime :: Integer -> IO Integer
+  genPrime k = do
+    gen <-getStdGen
+    return $ fst $ genPrime' gen k
+
+  genPrime' :: RandomGen g => g -> Integer -> (Integer, g)
+  genPrime' g k =
     let bottomBound = 2 ^ k
         upperBound = bottomBound * 2 - 1
         (r, g') = randomR (bottomBound, upperBound) g
         r' = if r `mod` 2 == 0 then r + 1 else r
-    in genPrime' g' k r'
-
-  genPrime' :: RandomGen g => g -> Integer -> Integer -> (Integer, g)
-  genPrime' g k r
-    | r >= 10 ^ (k + 1) = genPrime g k
-    | otherwise = case testML r 5 g of
-                    (True, g') -> (r, g')
-                    (_, g') -> genPrime' g' k (r+2)
-
-
+        go g k r
+          | r >= 10 ^ (k + 1) = genPrime' g k
+          | otherwise = case testML r 5 g of
+                          (True, g') -> (r, g')
+                          (_, g') -> go g' k (r+2)
+    in go g' k r'
 
   testML :: RandomGen g => Integer -> Integer -> g -> (Bool, g)
   testML _ 0 g = (True, g)
