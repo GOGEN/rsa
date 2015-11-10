@@ -43,7 +43,7 @@ module TaskList
                                         pq <- fact (read n)
                                         print pq
                                         let p_key = R.calcPrivateKey pq (read e)
-                                        print $ customDecrypt p_key (read sw)
+                                        putStrLn $ customDecrypt p_key (read sw)
                                       _ -> printHelper
     dispatch "-help" _ = printHelper
     dispatch _ _ =  printHelper
